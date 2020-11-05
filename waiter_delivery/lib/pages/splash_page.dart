@@ -1,6 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:waiter_delivery/pages/login/login_page.dart';
 import 'package:waiter_delivery/util/custom_text.dart';
 
 class SplashPage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       Duration(milliseconds: 4400),
       (){
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => Container()));
+            MaterialPageRoute(builder: (context) => LoginPage()));
       }
     );
   }
@@ -46,7 +47,6 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(148, 106, 18, 1.0),
       body: SafeArea(
         child: Padding(
         padding: const EdgeInsets.all(10),
@@ -60,14 +60,25 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                 child: FadeTransition(
                   opacity: _animation,
                   child: Center(
-                    child: Text(
-                      CustomText.splashTitle,
-                      style: GoogleFonts.lobster(
-                        color: Color.fromRGBO(245, 245, 220, 1.0),
-                        fontSize: 50,
+                    child: RichText(
+                      text: TextSpan(
+                        style: GoogleFonts.lobster(
+                            fontSize: 50,
+                            color: Colors.amber[50]
+                        ),
+                        children: [
+                          TextSpan(text: CustomText.waiterTitle),
+                          TextSpan(text: " "),
+                          TextSpan(
+                            text: CustomText.deliveryTitle,
+                            style: GoogleFonts.lobster(
+                                fontSize: 50,
+                                color: Colors.orange
+                            ),
+                          ),
+                        ]
                       ),
-                      softWrap: true,
-                    ),
+                    )
                   )
                 )
               )

@@ -5,6 +5,10 @@ class UrlAPI {
 
   /* DINÂMICOS */
 
+  // Login facebook
+  static String loginFB(String token)
+      => "https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=$token";
+
   // Retorna lista de MealModel
   static String mealByName(String name) => "$mainURL/search.php?s=$name";
   static String mealByFirstLetter(String letter)
