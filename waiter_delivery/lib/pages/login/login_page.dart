@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/components/login/custom_floating_button.dart';
 import 'package:waiter_delivery/components/login/login_text_field.dart';
 import 'package:waiter_delivery/repositories/user_repository.dart';
@@ -64,6 +65,22 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   void initState() {
     super.initState();
     _initAnimations();
+  }
+
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    disposer = reaction(
+        (_) => loginStore.loginSucceed,
+        (loginSucceed) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => Container())
+          );
+        }
+    );
   }
 
   @override
@@ -253,7 +270,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                               size: 26,
                               color: Colors.white,
                             ),
-                            onPressed: loginStore.login
+                            onPressed: loginStore.logInFB
                           ),
                         ),
                       ),
@@ -286,5 +303,11 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         )
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
   }
 }

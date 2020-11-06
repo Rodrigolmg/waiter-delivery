@@ -1,7 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/enums/login_type_enum.dart';
 import 'package:waiter_delivery/repositories/user_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 part 'login_store.g.dart';
 
@@ -11,7 +10,7 @@ abstract class _LoginStore with Store {
 
   // OBSERVABLES
   @observable
-  String username;
+  String email;
 
   @observable
   String password;
@@ -27,7 +26,7 @@ abstract class _LoginStore with Store {
 
   // ACTIONS
   @action
-  void setEmail(String usernameValue) => username = usernameValue;
+  void setEmail(String emailValue) => email = emailValue;
 
   @action
   void setPassword(String passwordValue) => password = passwordValue;
@@ -38,10 +37,24 @@ abstract class _LoginStore with Store {
     loading = true;
 
     try{
-      await UserRepository().loginWithFB().whenComplete(() => {
-        isLogged = true
-      });
-      print("a");
+      final profile = await UserRepository().loginWithFB();
+
+    } catch(e) {
+      //error = e;
+      print(e);
+    }
+
+    loading = false;
+  }
+
+  @action
+  Future<void> _logInWithFB() async {
+    loading = true;
+
+    try{
+      final profile = await UserRepository().loginWithFB();
+      print(profile);
+      isLogged = profile != null;
     } catch(e) {
       //error = e;
       print(e);
@@ -54,6 +67,9 @@ abstract class _LoginStore with Store {
 
   @computed
   Function get login => _login;
+
+  @computed
+  Function get logInFB => _logInWithFB;
 
   @computed
   bool get loginSucceed => isLogged;

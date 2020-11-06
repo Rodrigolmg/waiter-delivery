@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:waiter_delivery/pages/splash_page.dart';
+import 'package:waiter_delivery/stores/page_store.dart';
 import 'package:waiter_delivery/util/custom_color.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  setupLocators();
   runApp(WaiterDelivery());
+}
+
+void setupLocators() {
+  GetIt.I.registerSingleton(PageStore());
 }
 
 class WaiterDelivery extends StatelessWidget {
