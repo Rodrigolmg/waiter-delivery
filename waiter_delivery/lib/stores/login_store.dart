@@ -37,7 +37,7 @@ abstract class _LoginStore with Store {
     loading = true;
 
     try{
-      final profile = await UserRepository().loginWithFB();
+      isLogged = true;
 
     } catch(e) {
       //error = e;

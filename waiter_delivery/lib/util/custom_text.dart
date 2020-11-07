@@ -1,7 +1,7 @@
 class CustomText {
 
   /* ESTÁTICOS */
-  static String splashTitle = "Waiter Delivery";
+  static String appName = "Waiter Delivery";
   static String waiterTitle = "Waiter";
   static String deliveryTitle = "Delivery";
   static String username = "Username";
@@ -10,6 +10,7 @@ class CustomText {
   static String accountQuestion = "Don't have an account?";
   static String signUpNow = "Sign up now!";
   static String login = "Login";
+  static String categoriesTitle = "Categories";
 
 
   /* DINÂMICOS */

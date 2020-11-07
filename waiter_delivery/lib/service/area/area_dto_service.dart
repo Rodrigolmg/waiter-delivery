@@ -5,7 +5,7 @@ class AreaDTOService extends Service<AreaDTO> {
 
 
   @override
-  onSuccess(response, responseHeader) {
+  onSuccess(response) {
     if(response['meals'] != null){
       response['meals'].forEach(
           (json) => modelList.add(AreaDTO.fromJson(json))

@@ -5,16 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/components/login/custom_floating_button.dart';
 import 'package:waiter_delivery/components/login/login_text_field.dart';
-import 'package:waiter_delivery/repositories/user_repository.dart';
+import 'package:waiter_delivery/pages/home_screen.dart';
 import 'package:waiter_delivery/stores/login_store.dart';
 import 'package:waiter_delivery/util/custom_text.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin{
 
   final loginStore = LoginStore();
 
@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         (_) => loginStore.loginSucceed,
         (loginSucceed) {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => Container())
+            MaterialPageRoute(builder: (_) => HomeScreen())
           );
         }
     );
@@ -153,20 +153,22 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                   Container(
                                     height: 50,
                                     width: MediaQuery.of(context).size.width / 1.5,
-                                    child: RaisedButton(
-                                      onPressed: null,
-                                      color: Colors.orange,
-                                      disabledColor: Colors.orange.withAlpha(130),
-                                      child: Text(
-                                        CustomText.login,
-                                        style: GoogleFonts.lobster(
-                                            color: Colors.white.withAlpha(130),
-                                            fontSize: 30
+                                    child: Observer(
+                                      builder: (_) => RaisedButton(
+                                        onPressed: loginStore.login,
+                                        color: Colors.orange,
+                                        disabledColor: Colors.orange.withAlpha(130),
+                                        child: Text(
+                                          CustomText.login,
+                                          style: GoogleFonts.lobster(
+                                              color: Colors.white.withAlpha(130),
+                                              fontSize: 30
+                                          ),
                                         ),
-                                      ),
-                                      elevation: 1,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30)
+                                        elevation: 1,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(30)
+                                        ),
                                       ),
                                     ),
                                   ),

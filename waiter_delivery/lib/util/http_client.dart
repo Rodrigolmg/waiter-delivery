@@ -8,40 +8,24 @@ class HttpClient {
   String url;
   Map<dynamic, dynamic> body;
   Map<String, String> _header;
-  bool withHeader;
   var onSuccess;
   var onFail;
 
   HttpClient({
     this.url,
     this.body,
-    this.withHeader = true,
     this.onSuccess,
     this.onFail
   });
 
-  execute() async {
-    _header['Content-Type'] = 'application/json';
-    _get();
-  }
-
-  _get() async {
-
-    var response = withHeader ? await http.get(url, headers: _header)
-        : await http.get(url);
-
-    if(response.statusCode != 200 && response.statusCode != 201){
-
-      try{
-        final responseJson = convert.jsonDecode(response.body);
-        onFail(responseJson);
-      } catch(exception){
-        print(exception);
-      }
-
+  get() async {
+    var response = await http.get(url);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      var json = convert.jsonDecode(response.body);
+      onSuccess(json);
     } else {
-      final responseJson = convert.jsonDecode(response.body);
-      await onSuccess(responseJson, response.headers);
+      var json = convert.jsonDecode(response.body);
+      onFail(json);
     }
   }
 
@@ -53,8 +37,7 @@ class HttpClient {
 
     final response = await http.get(UrlAPI.loginFB(token));
     Map<String, dynamic> profile = {};
-    if(result.status == FacebookLoginStatus.loggedIn
-      && response != null){
+    if(result.status == FacebookLoginStatus.loggedIn){
       profile = convert.jsonDecode(response.body);
     }
 

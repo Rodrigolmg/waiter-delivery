@@ -2,7 +2,7 @@ class MealDTO {
 
   String strMeal;
   String strMealThumb;
-  int idMeal;
+  String idMeal;
 
   MealDTO({this.strMeal, this.strMealThumb, this.idMeal});
 

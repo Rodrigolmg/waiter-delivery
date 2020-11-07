@@ -1,15 +1,15 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:waiter_delivery/pages/login/login_page.dart';
+import 'package:waiter_delivery/pages/login/login_screen.dart';
 import 'package:waiter_delivery/util/custom_text.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  _SplashPageState createState() => _SplashPageState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin{
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin{
 
   AnimationController _animationController;
   Animation _animation;
@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       Duration(milliseconds: 4400),
       (){
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => LoginPage()));
+            MaterialPageRoute(builder: (context) => LoginScreen()));
       }
     );
   }

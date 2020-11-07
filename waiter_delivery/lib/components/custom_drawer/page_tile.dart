@@ -16,13 +16,17 @@ class PageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: highlighted ? Colors.amber : Colors.amber[50],
+      color: highlighted ? Colors.orange : Colors.brown[400],
+      height: 250,
+      child: Center(
+        child: ListTile(
+          leading: Icon(
+            icon,
+            color: highlighted ? Colors.brown[400] : Colors.orange,
+            size: 45,
+          ),
+          onTap: onTap,
         ),
-        onTap: onTap,
       ),
     );
   }

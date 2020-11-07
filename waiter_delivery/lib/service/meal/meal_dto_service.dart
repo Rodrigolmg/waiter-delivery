@@ -4,7 +4,7 @@ import 'package:waiter_delivery/service/service.dart';
 class MealDTOService extends Service<MealDTO> {
 
   @override
-  onSuccess(response, responseHeader) {
+  onSuccess(response) {
     if(response['meals'] != null) {
       response['meals'].forEach(
           (json) => modelList.add(MealDTO.fromJson(json))

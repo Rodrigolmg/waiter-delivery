@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:waiter_delivery/pages/splash_page.dart';
+import 'package:waiter_delivery/pages/splash_screen.dart';
+import 'package:waiter_delivery/stores/category_store.dart';
 import 'package:waiter_delivery/stores/page_store.dart';
-import 'package:waiter_delivery/util/custom_color.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,11 +11,11 @@ void main() {
 }
 
 void setupLocators() {
-  GetIt.I.registerSingleton(PageStore());
+  GetIt.I.registerSingleton<PageStore>(PageStore());
+  GetIt.I.registerSingleton<CategoryStore>(CategoryStore());
 }
 
 class WaiterDelivery extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +31,7 @@ class WaiterDelivery extends StatelessWidget {
               elevation: 0
           ),
       ),
-      home: SplashPage(),
+      home: SplashScreen(),
     );
   }
 }

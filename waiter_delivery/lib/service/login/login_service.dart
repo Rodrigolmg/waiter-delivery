@@ -8,7 +8,7 @@ class LoginService extends Service<UserModel>{
   dynamic profile;
 
   @override
-  onSuccess(response, responseHeader) {
+  onSuccess(response) {
     if(response != null){
       profile = jsonDecode(response.body);
     } else {

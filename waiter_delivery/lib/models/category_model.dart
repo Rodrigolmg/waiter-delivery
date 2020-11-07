@@ -1,6 +1,6 @@
 class CategoryModel {
 
-  int idCategory;
+  String idCategory;
   String strCategory;
   String strCategoryThumb;
   String strCategoryDescription;
