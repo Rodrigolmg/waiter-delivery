@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:waiter_delivery/pages/splash_screen.dart';
 import 'package:waiter_delivery/stores/category_store.dart';
+import 'package:waiter_delivery/stores/meal_store.dart';
 import 'package:waiter_delivery/stores/page_store.dart';
+import 'package:waiter_delivery/stores/screen_action_store.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +15,8 @@ void main() {
 void setupLocators() {
   GetIt.I.registerSingleton<PageStore>(PageStore());
   GetIt.I.registerSingleton<CategoryStore>(CategoryStore());
+  GetIt.I.registerSingleton<MealStore>(MealStore());
+  GetIt.I.registerSingleton<ScreenActionStore>(ScreenActionStore());
 }
 
 class WaiterDelivery extends StatelessWidget {

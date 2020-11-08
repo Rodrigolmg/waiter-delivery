@@ -13,7 +13,7 @@ class UrlAPI {
   static String mealByName(String name) => "$mainURL/search.php?s=$name";
   static String mealByFirstLetter(String letter)
       => "$mainURL/search.php?f=$letter";
-  static String mealDetailsById(int id) => "$mainURL/lookup.php?i=$id";
+  static String mealDetailsById(String id) => "$mainURL/lookup.php?i=$id";
 
   // Retorna lista de: CategoryDTO, AreaDTO ou IngredientModel
   static String listAll(String typeList) =>

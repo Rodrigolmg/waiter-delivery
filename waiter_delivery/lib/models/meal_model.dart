@@ -1,6 +1,6 @@
 class MealModel {
 
-  int idMeal;
+  String idMeal;
   String strMeal;
   String strDrinkAlternate;
   String strCategory;

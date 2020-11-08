@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  brasil_fields: ^0.4.0
   flare_flutter: ^2.0.6
   flutter_mobx: ^1.1.0+2
   flutter_facebook_login: ^3.0.0
@@ -74,7 +75,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-    - assets/icon/waiter.png
+    - assets/icon/
     - assets/flare/WaiterPray.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see

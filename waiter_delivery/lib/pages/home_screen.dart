@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:waiter_delivery/components/custom_drawer/custom_drawer.dart';
 import 'package:waiter_delivery/components/custom_text_widget.dart';
 import 'package:waiter_delivery/components/home/category_listview.dart';

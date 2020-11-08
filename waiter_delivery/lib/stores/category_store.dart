@@ -16,11 +16,7 @@ abstract class _CategoryStore with Store {
   // OBSERVABLES
   ObservableList<CategoryModel> categoryList = ObservableList();
 
-  @observable
-  ScrollController controller;
 
-  @observable
-  double topContainer = 0.0;
 
   // ACTIONS
   void setCategories(List<CategoryModel> categories){
@@ -28,18 +24,10 @@ abstract class _CategoryStore with Store {
     categoryList.addAll(categories);
   }
 
-  @action
-  void setController(ScrollController controllerValue)
-    => controller = controllerValue;
 
-  @action
-  void setTopContainer(double topContainerValue)
-    => topContainer = topContainerValue;
 
   // COMPUTED
-  @computed
-  ScrollController get getController => controller;
-  double get getTopContainer => topContainer;
+
 
   // FUNCTIONS
   Future<void> _loadCategories() async {

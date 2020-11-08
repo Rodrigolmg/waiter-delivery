@@ -1,10 +1,20 @@
+import 'dart:math';
+
 class MealDTO {
 
   String strMeal;
   String strMealThumb;
   String idMeal;
+  int mealQuantity;
+  double price;
 
-  MealDTO({this.strMeal, this.strMealThumb, this.idMeal});
+  MealDTO({
+    this.strMeal,
+    this.strMealThumb,
+    this.idMeal,
+    this.mealQuantity = 0,
+    this.price
+  });
 
   MealDTO.fromJson(Map<String, dynamic> json){
     this.strMeal = json['strMeal'];
