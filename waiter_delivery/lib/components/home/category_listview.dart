@@ -11,12 +11,6 @@ import 'package:waiter_delivery/stores/screen_action_store.dart';
 
 class CategoryListView extends StatefulWidget {
 
-  final ScrollController scrollController;
-
-  CategoryListView({
-    this.scrollController,
-  });
-
   @override
   _CategoryListViewState createState() => _CategoryListViewState();
 }
@@ -27,12 +21,6 @@ class _CategoryListViewState extends State<CategoryListView> {
   final CategoryStore categoryStore = GetIt.I<CategoryStore>();
   final MealStore mealStore = GetIt.I<MealStore>();
   final ScreenActionStore screenActionStore = GetIt.I<ScreenActionStore>();
-
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
@@ -46,46 +34,68 @@ class _CategoryListViewState extends State<CategoryListView> {
   @override
   Widget build(BuildContext context) {
 
-    screenActionStore.setController(widget.scrollController);
+    // screenActionStore.setController(widget.scrollController);
+    Size size = MediaQuery.of(context).size;
+    final double containerHeight = size.height * 0.15;
 
-    return Expanded(
-      child: Observer(
-        builder: (_) =>  ListView.builder(
-          controller: screenActionStore.controller,
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: categoryStore.categoryList.length,
-          itemBuilder: (_, index){
-
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 16, 10, 8),
-                  child: GestureDetector(
-                      onTap: () => pageStore.setPushScreen(() {
-                        mealStore.mealsByCategory(
-                          categoryStore.categoryList[index].strCategory
-                        );
-                        Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => MealsScreen()
-                            )
-                        );
-                      }),
-                      child: Image.network(categoryStore.categoryList[index].strCategoryThumb)
-                  ),
-                ),
-                Center(
-                  child: CustomTextWidget(
-                    categoryStore.categoryList[index].strCategory,
-                    fontSize: 35,
-                  ),
-                )
-              ],
-            );
-          }
+    return Column(
+      children: [
+        AnimatedOpacity(
+          duration: const Duration(milliseconds: 200),
+          opacity: screenActionStore.getCloseContainer ? 0 : 1,
+          child: AnimatedContainer(
+            curve: Curves.ease,
+            duration: Duration(milliseconds: 200),
+            height: screenActionStore.getCloseContainer ? 0 : containerHeight,
+            width: size.width,
+            alignment: Alignment.topCenter,
+            child: Center(
+              child: CustomTextWidget(
+                screenActionStore.getTitle,
+                fontSize: 50,
+              ),
+            ),
+          ),
         ),
-      ),
+        Expanded(
+          child: Observer(
+            builder: (_) =>  ListView.builder(
+                controller: screenActionStore.controller,
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemCount: categoryStore.categoryList.length,
+                itemBuilder: (_, index){
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 16, 10, 8),
+                        child: GestureDetector(
+                            onTap: () => pageStore.setPushScreen(() {
+                              mealStore.mealsByCategory(
+                                  categoryStore.categoryList[index].strCategory
+                              );
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => MealsScreen()
+                                  )
+                              );
+                            }),
+                            child: Image.network(categoryStore.categoryList[index].strCategoryThumb)
+                        ),
+                      ),
+                      Center(
+                        child: CustomTextWidget(
+                          categoryStore.categoryList[index].strCategory,
+                          fontSize: 35,
+                        ),
+                      )
+                    ],
+                  );
+                }
+            ),
+          ),
+        ),
+      ]
     );
   }
 }

@@ -9,9 +9,16 @@ class MealRepository {
   MealService mealService = MealService();
   MealDTOService mealDTOService = MealDTOService();
 
+  // RETORNA MEALDTO
   Future<List<MealDTO>> getMealsByCategory(String category) async {
     await mealDTOService.get(UrlAPI.filterByCategory(category));
     return mealDTOService.modelList;
+  }
+
+  // RETORNA MEALMODEL
+  Future<List<MealModel>> getMealsByFirstLetter(String letter) async {
+    await mealService.get(UrlAPI.mealByFirstLetter(letter));
+    return mealService.modelList;
   }
 
   Future<MealModel> getMealDetailsById(String id) async {

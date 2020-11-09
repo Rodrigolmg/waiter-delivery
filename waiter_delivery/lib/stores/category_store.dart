@@ -17,8 +17,8 @@ abstract class _CategoryStore with Store {
   ObservableList<CategoryModel> categoryList = ObservableList();
 
 
-
   // ACTIONS
+  @action
   void setCategories(List<CategoryModel> categories){
     categoryList.clear();
     categoryList.addAll(categories);

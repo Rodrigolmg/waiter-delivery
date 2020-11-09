@@ -67,7 +67,6 @@ class _MealsScreenState extends State<MealsScreen> with SingleTickerProviderStat
     reaction(
       (_) => mealStore.isMealsToBuyEmpty,
       (isMealsToBuyEmpty) => {
-
         if(isMealsToBuyEmpty && _animationController.isCompleted){
           _animationController.reverse()
         } else {
@@ -83,9 +82,11 @@ class _MealsScreenState extends State<MealsScreen> with SingleTickerProviderStat
       child: Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ShopCartScreen())
-              );
+              if(!mealStore.isMealsToBuyEmpty) {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ShopCartScreen())
+                );
+              }
             },
             child: Container(
               height: 28,

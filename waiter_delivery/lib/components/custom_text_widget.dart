@@ -21,7 +21,7 @@ class CustomTextWidget extends StatelessWidget {
       softWrap: softWrap,
       style: GoogleFonts.lobster(
         color: color ?? Colors.amber[50],
-        fontSize: fontSize
+        fontSize: fontSize,
       ),
     );
   }

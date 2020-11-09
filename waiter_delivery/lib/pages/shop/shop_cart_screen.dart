@@ -17,39 +17,49 @@ class ShopCartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SafeArea(
-          child: Scaffold(
-            appBar: AppBar(),
-            body: Column(
-
-              children: [
-                Container(
-                  height: 100,
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: [
-
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Observer(builder: (_) => ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: mealStore.mealsToBuyLength,
-                      itemBuilder: (_, index){
-                        return CardShopCart(mealStore.mealsToBuy[index]);
-                      }
-                    )
-                  )
-                ),
-                Container(
-                  height: 100,
-                  width: MediaQuery.of(context).size.width,
-
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){},
+          child: Container(
+            height: 28,
+            width: 28,
+            child: Image(image: AssetImage('assets/icon/shopcart-delivery.png')),
+          ),
+        ),
+        appBar: AppBar(),
+        body: Column(
+          children: [
+            Expanded(
+                child: Observer(builder: (_) => ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: mealStore.mealsToBuyLength,
+                    itemBuilder: (_, index){
+                      return CardShopCart(mealStore.mealsToBuy[index]);
+                    }
                 )
-              ],
+                )
             ),
-          )
+            Container(
+              color: Colors.amber[50],
+              height: 150,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 15
+                    ),
+                    child: Observer(
+                      builder: (_) => CustomTextWidget(
+                        CustomText.total(CustomText.formatPrice(mealStore.subTotal)),
+                        color: Colors.orange,
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       )
     );

@@ -13,7 +13,7 @@ class MealDTO {
     this.strMealThumb,
     this.idMeal,
     this.mealQuantity = 0,
-    this.price
+    this.price = 0.0,
   });
 
   MealDTO.fromJson(Map<String, dynamic> json){
