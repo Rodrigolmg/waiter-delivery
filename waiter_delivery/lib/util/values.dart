@@ -22,3 +22,9 @@ const lettersValues = [
   "P", "Q", "R", "S", "T",
   "U", "Y", "W", "X", "Z",
 ];
+
+const keyUserId = 'objectId';
+const keyUserName = 'name';
+const keyUserEmail = 'email';
+const keyUserPhone = 'phone';
+const keyUserCreatedAt = 'createdAt';

@@ -1,7 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:waiter_delivery/pages/login/login_screen.dart';
+import 'package:waiter_delivery/screens/login/login_screen.dart';
 import 'package:waiter_delivery/util/custom_text.dart';
 
 class SplashScreen extends StatefulWidget {

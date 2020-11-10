@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/components/custom_text_widget.dart';
 import 'package:waiter_delivery/models/dto/meal_dto_model.dart';
 import 'package:waiter_delivery/models/meal_model.dart';
-import 'package:waiter_delivery/pages/meal/meal_detail_screen.dart';
+import 'package:waiter_delivery/screens/meal/meal_detail_screen.dart';
 import 'package:waiter_delivery/stores/meal_store.dart';
 
 class CardSimpleMeal extends StatefulWidget {

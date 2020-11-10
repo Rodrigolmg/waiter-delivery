@@ -3,9 +3,11 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobx/mobx.dart';
+import 'package:waiter_delivery/components/custom_text_widget.dart';
 import 'package:waiter_delivery/components/login/custom_floating_button.dart';
 import 'package:waiter_delivery/components/login/login_text_field.dart';
-import 'package:waiter_delivery/pages/home_screen.dart';
+import 'package:waiter_delivery/screens/home_screen.dart';
+import 'package:waiter_delivery/screens/signup/signup_screen.dart';
 import 'package:waiter_delivery/stores/login_store.dart';
 import 'package:waiter_delivery/util/custom_text.dart';
 
@@ -155,15 +157,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                     width: MediaQuery.of(context).size.width / 1.5,
                                     child: Observer(
                                       builder: (_) => RaisedButton(
-                                        onPressed: loginStore.login,
+                                        onPressed: null,
                                         color: Colors.orange,
                                         disabledColor: Colors.orange.withAlpha(130),
-                                        child: Text(
+                                        child: CustomTextWidget(
                                           CustomText.login,
-                                          style: GoogleFonts.lobster(
-                                              color: Colors.white.withAlpha(130),
-                                              fontSize: 30
-                                          ),
+                                          fontSize: 30,
                                         ),
                                         elevation: 1,
                                         shape: RoundedRectangleBorder(
@@ -176,6 +175,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                     height: 3,
                                   ),
                                   GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context) =>
+                                        SignUpScreen())
+                                      );
+                                    },
                                       child: RichText(
                                         text: TextSpan(
                                             style: GoogleFonts.lobster(
@@ -227,29 +232,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         color: Colors.transparent, // comment or change to transparent color
                         height: 150.0,
                         width: 150.0,
-                      ),
-                    ),
-                    Transform.translate(
-                      offset: Offset.fromDirection(
-                          getRadiansFromDegree(180),
-                          _translationAnimationTwo.value * 200
-                      ),
-                      child: Transform(
-                        transform: Matrix4.rotationZ(
-                            getRadiansFromDegree(_rotationAnimation.value)
-                        )..scale(_translationAnimationTwo.value),
-                        alignment: Alignment.center,
-                        child: CustomFloatingButton(
-                          color: Colors.redAccent,
-                          width: 60,
-                          height: 60,
-                          icon: Icon(
-                              Icons.add
-                          ),
-                          onPressed: (){
-
-                          },
-                        ),
                       ),
                     ),
                     Transform.translate(

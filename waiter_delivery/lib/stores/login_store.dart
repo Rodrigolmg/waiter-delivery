@@ -1,5 +1,7 @@
 import 'package:mobx/mobx.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:waiter_delivery/enums/login_type_enum.dart';
+import 'package:waiter_delivery/models/user_model.dart';
 import 'package:waiter_delivery/repositories/user_repository.dart';
 
 part 'login_store.g.dart';
@@ -53,7 +55,6 @@ abstract class _LoginStore with Store {
 
     try{
       final profile = await UserRepository().loginWithFB();
-      print(profile);
       isLogged = profile != null;
     } catch(e) {
       //error = e;

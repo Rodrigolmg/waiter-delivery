@@ -65,7 +65,13 @@ abstract class _MealStore with Store {
     loading = true;
 
     try{
+      removeAll();
+      removeAllMeal();
       meals.addAll(await MealRepository().getMealsByFirstLetter(letter));
+      meals.forEach((mealModel) {
+        mealsDTO.add(MealDTO.fromMealModel(mealModel));
+      });
+
     } catch (e){
       throw e;
     }
@@ -79,6 +85,8 @@ abstract class _MealStore with Store {
 
   void removeAll() => mealsDTO.clear();
 
+  void removeAllMeal() => meals.clear();
+
   void removeAllMealsToBuy() => mealsToBuy.clear();
 
   // COMPUTED
@@ -90,6 +98,8 @@ abstract class _MealStore with Store {
 
   @computed
   bool get isMealsToBuyEmpty => mealsToBuy!= null && mealsToBuy.isEmpty;
+
+  bool get isMealsDTOEmpty => mealsDTO!= null && mealsDTO.isEmpty;
 
   @computed
   bool get isLoading => loading;

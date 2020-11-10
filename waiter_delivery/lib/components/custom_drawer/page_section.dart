@@ -4,9 +4,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/components/custom_drawer/page_tile.dart';
-import 'package:waiter_delivery/pages/home_screen.dart';
-import 'package:waiter_delivery/pages/profile/profile_screen.dart';
-import 'package:waiter_delivery/pages/shop/shop_cart_screen.dart';
+import 'package:waiter_delivery/screens/home_screen.dart';
+import 'package:waiter_delivery/screens/profile/profile_screen.dart';
+import 'package:waiter_delivery/screens/shop/shop_cart_screen.dart';
 import 'package:waiter_delivery/stores/page_store.dart';
 
 class PageSection extends StatefulWidget {

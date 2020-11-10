@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:waiter_delivery/models/meal_model.dart';
+
 class MealDTO {
 
   String strMeal;
@@ -20,6 +22,12 @@ class MealDTO {
     this.strMeal = json['strMeal'];
     this.strMealThumb = json['strMealThumb'];
     this.idMeal = json['idMeal'];
+  }
+
+  MealDTO.fromMealModel(MealModel mealModel){
+    this.strMeal = mealModel.strMeal;
+    this.idMeal = mealModel.idMeal;
+    this.strMealThumb = mealModel.strMealThumb;
   }
 
   Map<String, dynamic> toJson(){

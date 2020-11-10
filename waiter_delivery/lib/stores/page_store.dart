@@ -17,7 +17,10 @@ abstract class _PageStore with Store {
   void setIndex(int index) => screenIndex = index;
 
   @action
-  void setPushScreen(Function pushScreenValue) => pushScreen = pushScreenValue;
+  void setPushScreen(Function pushScreenValue){
+    pushScreen = null;
+    pushScreen = pushScreenValue;
+  }
 
   @action
   void runFunction(){
@@ -28,6 +31,8 @@ abstract class _PageStore with Store {
   @computed
   bool get isHomeScreen => screenIndex == 0;
 
+  @computed
+  Function get pushFuntcion => pushScreen;
   // FUNCTIONS
 }
 

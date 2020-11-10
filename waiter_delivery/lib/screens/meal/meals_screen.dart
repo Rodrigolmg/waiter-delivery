@@ -4,9 +4,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/components/custom_text_widget.dart';
-import 'package:waiter_delivery/components/login/custom_floating_button.dart';
 import 'package:waiter_delivery/components/meal/card_simple_meal.dart';
-import 'package:waiter_delivery/pages/shop/shop_cart_screen.dart';
+import 'package:waiter_delivery/screens/shop/shop_cart_screen.dart';
 import 'package:waiter_delivery/stores/meal_store.dart';
 
 class MealsScreen extends StatefulWidget {
@@ -112,7 +111,7 @@ class _MealsScreenState extends State<MealsScreen> with SingleTickerProviderStat
                   color: Colors.amber[50],
                 ),
                 onPressed: () {
-                  mealStore.mealsDTO.clear();
+                  mealStore.removeAll();
                   Navigator.of(context).pop();
                 }
             )
