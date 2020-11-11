@@ -17,9 +17,9 @@ void main() async {
 
 Future<void> initializeParse() async {
   await Parse().initialize(
-      '5y0rSYpCnnBgocMGijoNyi7sSo0dH9JpQArrdjnm',
+      '',
       'https://parseapi.back4app.com/',
-      clientKey: 'cld1zb0d7X4tN78yNev5F4FkrzUgZEQfgeW4hDp6',
+      clientKey: '',
       autoSendSessionId: true,
       debug: true
   );
