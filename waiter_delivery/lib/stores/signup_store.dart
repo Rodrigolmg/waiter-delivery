@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
+import 'package:waiter_delivery/components/custom_text_widget.dart';
 import 'package:waiter_delivery/models/user_model.dart';
 import 'package:waiter_delivery/repositories/user_repository.dart';
 import 'package:waiter_delivery/stores/user_manage_store.dart';
+import 'package:waiter_delivery/util/custom_text.dart';
 import 'package:waiter_delivery/util/extensions.dart';
 
 part 'signup_store.g.dart';
@@ -82,8 +84,10 @@ abstract class _SignupStore with Store {
 
   @computed
   bool get firstPassValid => firstPassword != null && firstPassword.length > 6;
+
   bool get secondPassValid => (firstPassword != null && secondPassword != null)
       && secondPassword.compareTo(firstPassword) == 0;
+
   bool get isFormValid => nameValid && emailValid && phoneValid
       && firstPassValid && secondPassValid;
 
@@ -91,23 +95,25 @@ abstract class _SignupStore with Store {
   String get nameError {
 
     if(name == null || nameValid) return null;
-    else if (name == null || name.isEmpty) return 'Campo obrigatório!';
+    else if (name == null || name.isEmpty) return CustomText.fieldRequired;
 
-    return 'Nome muito curto!';
+    return CustomText.usernameWarning;
   }
+
   String get emailError {
 
     if(email == null || emailValid) return null;
-    else if (email.isEmpty) return 'Campo obrigatório!';
+    else if (email.isEmpty) return CustomText.fieldRequired;;
 
-    return 'E-mail inválido!';
+    return CustomText.invalid("e-mail!");
   }
+
   String get phoneError {
 
     if(phone == null || phoneValid) return null;
-    else if (phone.isEmpty) return 'Campo obrigatório!';
+    else if (phone.isEmpty) return CustomText.fieldRequired;;
 
-    return 'Celular inválido!';
+    return CustomText.invalid("cell phone number!");
   }
 
   @computed
@@ -115,14 +121,16 @@ abstract class _SignupStore with Store {
 
     if(firstPassword == null || firstPassValid) return null;
 
-    return 'Senha inválida!';
+    return CustomText.invalid("password!");
   }
+
   String get secondPassError {
 
     if(secondPassword == null || secondPassValid) return null;
 
-    return 'Senhas não coincidem!';
+    return CustomText.wrongPassword;
   }
+
   Function get signUpPressed => isFormValid && !loading ? _signUp : null;
   Widget get buttonLabel => loading ?
   SizedBox(
@@ -130,7 +138,10 @@ abstract class _SignupStore with Store {
     width: 20,
     height: 20,
   )
-      : Text('CADASTRAR');
+      : CustomTextWidget(
+          CustomText.signUp,
+          fontSize: 25,
+        );
 
 // FUNCTIONS
 

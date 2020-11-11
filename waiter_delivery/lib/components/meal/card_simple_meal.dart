@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/components/custom_text_widget.dart';
 import 'package:waiter_delivery/models/dto/meal_dto_model.dart';
 import 'package:waiter_delivery/models/meal_model.dart';
-import 'package:waiter_delivery/screens/meal/meal_detail_screen.dart';
 import 'package:waiter_delivery/stores/meal_store.dart';
 
 class CardSimpleMeal extends StatefulWidget {
@@ -110,11 +109,11 @@ class _CardSimpleMealState extends State<CardSimpleMeal> {
                 curve: Curves.easeIn,
                 width: isClicked ? 30 : 0,
                 alignment: Alignment.center,
-                duration: Duration(milliseconds: 700),
+                duration: Duration(milliseconds: 500),
                 height: 150.2,
                 child: Center(
                   child: AnimatedOpacity(
-                    duration: Duration(milliseconds: isClicked ? 900 : 400),
+                    duration: Duration(milliseconds: isClicked ? 750 : 200),
                     opacity: isClicked ? 1 : 0,
                     child: Icon(
                       FeatherIcons.check,

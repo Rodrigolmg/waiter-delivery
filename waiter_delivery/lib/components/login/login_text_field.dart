@@ -9,6 +9,7 @@ class LoginTextField extends StatelessWidget {
   bool isPassword;
   bool isEnable;
   Function onChanged;
+  TextInputType textInputType;
 
 
   LoginTextField({
@@ -16,7 +17,8 @@ class LoginTextField extends StatelessWidget {
     this.errorText = "",
     this.isPassword = false,
     this.isEnable = true,
-    this.onChanged
+    this.onChanged,
+    this.textInputType = TextInputType.text
   });
 
   @override
@@ -39,9 +41,14 @@ class LoginTextField extends StatelessWidget {
           hintStyle: TextStyle(
             color: Colors.brown,
           ),
+          errorText: errorText,
+          errorStyle: GoogleFonts.lobster(
+            color: Colors.redAccent,
+            fontSize: 15
+          ),
         ),
         obscureText: isPassword,
-
+        keyboardType: textInputType,
       ),
     );
   }

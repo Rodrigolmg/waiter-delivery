@@ -7,6 +7,7 @@ import 'package:waiter_delivery/components/custom_text_widget.dart';
 import 'package:waiter_delivery/components/meal/card_simple_meal.dart';
 import 'package:waiter_delivery/screens/shop/shop_cart_screen.dart';
 import 'package:waiter_delivery/stores/meal_store.dart';
+import 'package:waiter_delivery/util/custom_text.dart';
 
 class MealsScreen extends StatefulWidget {
 
@@ -60,10 +61,12 @@ class _MealsScreenState extends State<MealsScreen> with SingleTickerProviderStat
 
   bool isMealEmpty = true;
 
+  ReactionDisposer disposer;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    reaction(
+    disposer = reaction(
       (_) => mealStore.isMealsToBuyEmpty,
       (isMealsToBuyEmpty) => {
         if(isMealsToBuyEmpty && _animationController.isCompleted){
@@ -79,21 +82,28 @@ class _MealsScreenState extends State<MealsScreen> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: (){
-              if(!mealStore.isMealsToBuyEmpty) {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ShopCartScreen())
-                );
-              }
-            },
-            child: Container(
-              height: 28,
-              width: 28,
-              child: Image(image: AssetImage('assets/icon/shopcart.png')),
+          floatingActionButton: Observer(
+            builder: (_) => mealStore.isMealsToBuyEmpty ? Container() : FloatingActionButton(
+              onPressed: (){
+                if(!mealStore.isMealsToBuyEmpty) {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ShopCartScreen())
+                  );
+                }
+              },
+              child: Container(
+                height: 28,
+                width: 28,
+                child: Image(image: AssetImage('assets/icon/shopcart.png')),
+              ),
             ),
           ),
           appBar: AppBar(
+            centerTitle: true,
+            title: CustomTextWidget(
+              CustomText.mealsToChoose,
+              fontSize: 20,
+            ),
             actions: [
               IconButton(
                   icon: Icon(
@@ -116,63 +126,78 @@ class _MealsScreenState extends State<MealsScreen> with SingleTickerProviderStat
                 }
             )
           ),
-          body: Stack(
-            children: [
-              Observer(
-                builder: (_) => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: mealStore.mealsDTO.length,
-                      itemBuilder: (_, index) {
-                        return CardSimpleMeal(
-                          mealDTO: mealStore.mealsDTO[index],
-                          isMealsEmpty: isMealEmpty,
-                        );
-                      }
-                  ),
+          body: Observer(
+            builder: (_) => mealStore.isMealsDTOEmpty ? Container(
+              child: Center(
+                child: CustomTextWidget(
+                  CustomText.noMealsFiltered,
+                  fontSize: 40,
                 ),
               ),
-              Positioned(
-                right: 20,
-                bottom: 20,
-                child: Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    IgnorePointer(
-                      child: Container(
-                        color: Colors.transparent,
-                        height: 150.0,
-                        width: 150.0,
-                      ),
+            ) : Stack(
+              children: [
+                Observer(
+                  builder: (_) => Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: mealStore.mealsDTO.length,
+                        itemBuilder: (_, index) {
+                          return CardSimpleMeal(
+                            mealDTO: mealStore.mealsDTO[index],
+                            isMealsEmpty: isMealEmpty,
+                          );
+                        }
                     ),
-                    Transform.translate(
-                      offset: Offset.fromDirection(
-                          getRadiansFromDegree(230),
-                          _translationAnimation.value * 58
+                  ),
+                ),
+                Positioned(
+                  right: 20,
+                  bottom: 20,
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      IgnorePointer(
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 150.0,
+                          width: 150.0,
+                        ),
                       ),
-                      child: Transform(
-                        transform: Matrix4.rotationZ(
-                            getRadiansFromDegree(_rotationAnimation.value)
-                        )..scale(_translationAnimation.value),
-                        alignment: Alignment.center,
-                        child: Observer(
-                          builder: (_) => CircleAvatar(
-                            radius: 11,
-                            backgroundColor: Colors.red,
-                            child: CustomTextWidget(
-                              "${mealStore.mealsToBuyLength}"
+                      Transform.translate(
+                        offset: Offset.fromDirection(
+                            getRadiansFromDegree(230),
+                            _translationAnimation.value * 58
+                        ),
+                        child: Transform(
+                          transform: Matrix4.rotationZ(
+                              getRadiansFromDegree(_rotationAnimation.value)
+                          )..scale(_translationAnimation.value),
+                          alignment: Alignment.center,
+                          child: Observer(
+                            builder: (_) => CircleAvatar(
+                              radius: 11,
+                              backgroundColor: Colors.red,
+                              child: CustomTextWidget(
+                                "${mealStore.mealsToBuyLength}"
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  )
                 )
-              )
-            ],
+              ],
+            ),
           )
       )
     );
+  }
+
+  @override
+  void dispose() {
+   disposer();
+   super.dispose();
   }
 }

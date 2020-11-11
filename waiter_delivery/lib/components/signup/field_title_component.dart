@@ -19,6 +19,7 @@ class FieldTitleComponent extends StatelessWidget {
           CustomTextWidget(
             '$title',
             fontSize: 16,
+            color: Colors.brown
           ),
           SizedBox(
             width: 8,

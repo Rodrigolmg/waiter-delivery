@@ -25,8 +25,6 @@ abstract class _UserManagerStore with Store {
   // COMPUTED
   @computed
   bool get isLoggedIn => user != null;
-  String get setDrawerHeaderLabel =>
-      isLoggedIn ? user.name : 'Acesse sua conta agora!';
   Widget get setLinkToRegisterOrAccess =>
       isLoggedIn ? Text(
         user.email,

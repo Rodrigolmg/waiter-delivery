@@ -12,7 +12,12 @@ class ErrorBox extends StatelessWidget {
     return message == null ?
       Container() :
       Container(
-        color: Colors.red,
+        width: MediaQuery.of(context).size.width * .84,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.red,
+        ),
         child: Row(
           children: [
             Icon(

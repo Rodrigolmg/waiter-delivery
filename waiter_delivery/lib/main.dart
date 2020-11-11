@@ -6,6 +6,7 @@ import 'package:waiter_delivery/stores/category_store.dart';
 import 'package:waiter_delivery/stores/meal_store.dart';
 import 'package:waiter_delivery/stores/page_store.dart';
 import 'package:waiter_delivery/stores/screen_action_store.dart';
+import 'package:waiter_delivery/stores/user_manage_store.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,7 @@ void setupLocators() {
   GetIt.I.registerSingleton<CategoryStore>(CategoryStore());
   GetIt.I.registerSingleton<MealStore>(MealStore());
   GetIt.I.registerSingleton<ScreenActionStore>(ScreenActionStore());
+  GetIt.I.registerSingleton<UserManageStore>(UserManageStore());
 }
 
 class WaiterDelivery extends StatelessWidget {

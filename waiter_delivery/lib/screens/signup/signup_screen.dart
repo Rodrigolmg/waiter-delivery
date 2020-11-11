@@ -2,23 +2,53 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/components/custom_text_widget.dart';
-import 'package:waiter_delivery/components/login/errorbox_component.dart';
+import 'package:waiter_delivery/components/errorbox_component.dart';
 import 'package:waiter_delivery/components/signup/field_title_component.dart';
+import 'package:waiter_delivery/screens/home_screen.dart';
 import 'package:waiter_delivery/screens/login/login_screen.dart';
 import 'package:waiter_delivery/stores/signup_store.dart';
+import 'package:waiter_delivery/stores/user_manage_store.dart';
 import 'package:waiter_delivery/util/custom_text.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
 
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final signupStore = SignupStore();
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    reaction(
+      (_) => GetIt.I<UserManageStore>().isLoggedIn,
+      (user) {
+        if(user){
+          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomeScreen())
+          );
+        }
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.amber[50]
+        ),
         title: CustomTextWidget(
-          CustomText.signUp
+          CustomText.signUp,
+          fontSize: 25,
         ),
         centerTitle: true,
       ),
@@ -170,6 +200,7 @@ class SignUpScreen extends StatelessWidget {
                            CustomTextWidget(
                             CustomText.accountQuestionTwo,
                             fontSize: 16,
+                            color: Colors.brown
                           ),
                           SizedBox(
                             width: 4,
@@ -186,6 +217,7 @@ class SignUpScreen extends StatelessWidget {
                             child: CustomTextWidget(
                               CustomText.signIn,
                               fontSize: 16,
+                              color: Colors.orange,
                             )
                           )
                         ],

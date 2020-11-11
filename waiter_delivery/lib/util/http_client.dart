@@ -7,7 +7,6 @@ class HttpClient {
 
   String url;
   Map<dynamic, dynamic> body;
-  Map<String, String> _header;
   var onSuccess;
   var onFail;
 

@@ -1,8 +1,9 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
-import 'package:waiter_delivery/enums/login_type_enum.dart';
-import 'package:waiter_delivery/models/user_model.dart';
 import 'package:waiter_delivery/repositories/user_repository.dart';
+import 'package:waiter_delivery/stores/user_manage_store.dart';
+import 'package:waiter_delivery/util/custom_text.dart';
+import 'package:waiter_delivery/util/extensions.dart';
 
 part 'login_store.g.dart';
 
@@ -38,12 +39,12 @@ abstract class _LoginStore with Store {
   Future<void> _login() async {
     loading = true;
 
-    try{
+    try {
+      final user = await UserRepository().loginWithEmail(email, password);
+      GetIt.I<UserManageStore>().setUser(user);
       isLogged = true;
-
-    } catch(e) {
-      //error = e;
-      print(e);
+    } catch(e){
+      error = e;
     }
 
     loading = false;
@@ -67,13 +68,36 @@ abstract class _LoginStore with Store {
   // COMPUTED
 
   @computed
-  Function get login => _login;
+  Function get login => emailValid && passwordValid && !loading
+      ? _login : null;
 
   @computed
   Function get logInFB => _logInWithFB;
 
   @computed
   bool get loginSucceed => isLogged;
+
+  @computed
+  bool get emailValid => email != null && email.isEmailValid();
+
+  @computed
+  bool get passwordValid => password != null && password.length >= 4;
+
+  @computed
+  String get passwordError {
+
+    if(password == null || passwordValid) return null;
+
+    return CustomText.invalid("password!");
+  }
+
+  @computed
+  String get emailError {
+
+    if(email == null || emailValid) return null;
+
+    return CustomText.invalid("e-mail!");
+  }
 
   // FUNCTIONS
 }

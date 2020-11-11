@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobx/mobx.dart';
 import 'package:waiter_delivery/components/custom_text_widget.dart';
+import 'package:waiter_delivery/components/errorbox_component.dart';
 import 'package:waiter_delivery/components/login/custom_floating_button.dart';
 import 'package:waiter_delivery/components/login/login_text_field.dart';
 import 'package:waiter_delivery/screens/home_screen.dart';
@@ -78,9 +79,11 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     disposer = reaction(
         (_) => loginStore.loginSucceed,
         (loginSucceed) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => HomeScreen())
-          );
+          if(loginSucceed){
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => HomeScreen())
+            );
+          }
         }
     );
   }
@@ -136,15 +139,37 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           SizedBox(
                             height: 50,
                           ),
-                          LoginTextField(
-                            hintText: CustomText.username,
+                          Observer(
+                              builder: (_) => Padding(
+                                padding: const EdgeInsets.only(top: 8),
+                                child: ErrorBox(
+                                  message: loginStore.error,
+                                ),
+                              )
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Observer(
+                            builder: (_) => LoginTextField(
+                              isEnable: !loginStore.loading,
+                              hintText: CustomText.username,
+                              onChanged: loginStore.setEmail,
+                              errorText: loginStore.emailError,
+                              textInputType: TextInputType.emailAddress,
+                            ),
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          LoginTextField(
-                            hintText: CustomText.password,
-                            isPassword: true,
+                          Observer(
+                            builder: (_) => LoginTextField(
+                              isEnable: !loginStore.loading,
+                              hintText: CustomText.password,
+                              isPassword: true,
+                              onChanged: loginStore.setPassword,
+                              errorText: loginStore.passwordError,
+                            ),
                           ),
                           SizedBox(
                             height: 15,
@@ -157,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                     width: MediaQuery.of(context).size.width / 1.5,
                                     child: Observer(
                                       builder: (_) => RaisedButton(
-                                        onPressed: null,
+                                        onPressed: loginStore.login,
                                         color: Colors.orange,
                                         disabledColor: Colors.orange.withAlpha(130),
                                         child: CustomTextWidget(

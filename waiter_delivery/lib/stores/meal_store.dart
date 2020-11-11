@@ -72,6 +72,8 @@ abstract class _MealStore with Store {
         mealsDTO.add(MealDTO.fromMealModel(mealModel));
       });
 
+      mealsDTO.forEach((mealDTO) => mealDTO.price = prices[Random().nextInt(10)]);
+
     } catch (e){
       throw e;
     }
