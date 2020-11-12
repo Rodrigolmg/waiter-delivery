@@ -6,3 +6,6 @@ For login you can use your Facebook account or sign up. For this one was used Pa
 
 And not less important, for state management was used MobX.
 
+
+
+Um aplicativo de exemplo para
